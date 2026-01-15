@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Platillos</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+<h1>Menú de Platillos</h1>
+<p class="texto-chico">
+    Input + estado + render dinámico
+</p>
+
+<section class="panel">
+    <form id="formulario" novalidate>
+
+        <label for="nombrePlatillo">Nombre del platillo</label>
+        <input type="text" id="nombrePlatillo" placeholder="Ej. Tacos al pastor">
+
+        <label for="precioPlatillo">Precio</label>
+        <input type="number" id="precioPlatillo" placeholder="Ej. 80">
+
+        <label for="descripcionPlatillo">Descripción</label>
+        <textarea id="descripcionPlatillo" rows="3"
+            placeholder="Describe el platillo"></textarea>
+
+        <div id="textoError" class="error" role="alert"></div>
+
+        <div class="acciones">
+            <button type="submit" id="btnAgregarPlatillo">
+                Agregar platillo
+            </button>
+
+            <button type="button" id="btnLimpiarFormulario"
+                class="btnSecundario">
+                Limpiar formulario
+            </button>
+
+            <button type="button" id="btnLimpiarLista"
+                class="btnPeligro">
+                Limpiar menú
+            </button>
+        </div>
+
+    </form>
+</section>
+
+<section class="panelSeparacion">
+    <h2>Platillos agregados</h2>
+
+    <ol id="listaPlatillos"></ol>
+
+    <p id="textoVacio" class="texto-chico">
+        Aún no hay platillos en el menú
+    </p>
+</section>
+
+<script src="app.js" defer></script>
+</body>
+</html>
