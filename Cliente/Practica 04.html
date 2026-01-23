@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es-MX"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 04 - CRUD</title>
+    <link rel="stylesheet" href="estilos.css">   
+    <link rel="stylesheet" href="estilos_base.css"> 
+</head>
+<body>
+    <h1>CRUD-Práctica 04</h1>
+<p class="texto chico"> Crear/ Editar/ Eliminar con delegación de funciones</p>
+<section class="panel">
+    <form id ="formularioReactivo"novalidate>
+        <label for ="textoPregunta">Pregunta</label>
+        <textarea id="textoPregunta" name="textoPregunta" rows="3" placeholder="Minimo 10 caracteres" required></textarea>
+        <label for="textoRespuesta"> Respuesta correcta</label>
+        <input type="text" id="textoRespuesta" name="textoRespuesta" placeholder="Respuesta correcta" required>
+        <div id ="textoError" class="error" role="alert"></div>
+
+        //ux= nu soloboton 
+<button type="submit" id="btnGuardar">Guardar</button>
+<p id="mensaje" class="textoChico" aria-live="polite"></p>  
+    </form>
+</section>
+<section class="panel panel separacion">
+    <h2>Reactivos</h2>
+    // delegación aqui se capturan clicks de editar/eliminar
+    <ul id="listaReactivos">
+
+    </ul>
+    <p id="textoVacio" class="textoChico"> Aun no hay reactivos</p>
+    <section>
+        <script src="Practica 04.js" defer></script>
+</body>
+</html>

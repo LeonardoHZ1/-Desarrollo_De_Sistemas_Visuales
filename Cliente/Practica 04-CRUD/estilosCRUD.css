@@ -1,0 +1,192 @@
+/* ===== RESET BÁSICO ===== */
+.formulario {
+	flex-direction: column;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+
+input {
+padding: 10px;
+border-radius: 8px;
+border: none;
+outline: none;
+font-size: 14px;
+}
+
+
+input::placeholder {
+color: var(--text-muted);
+}
+
+
+button {
+padding: 10px;
+border: none;
+border-radius: 8px;
+font-weight: bold;
+cursor: pointer;
+transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+
+button:hover {
+opacity: 0.9;
+transform: scale(1.02);
+}
+
+
+/* ===== BOTONES ===== */
+.btn-add {
+background-color: var(--primary);
+color: #000;
+}
+
+
+.btn-update {
+background-color: var(--warning);
+color: #000;
+display: none;
+}
+
+
+/* ===== LISTA ===== */
+ul {
+list-style: none;
+}
+
+
+li {
+background-color: var(--bg-card);
+padding: 10px;
+border-radius: 8px;
+margin-bottom: 8px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+
+.song-info {
+font-size: 14px;
+}
+
+
+/* ===== ACCIONES ===== */
+.actions button {
+padding: 6px 8px;
+font-size: 12px;
+margin-left: 4px;
+}
+
+
+.edit {
+background-color: var(--info);
+color: #fff;
+}
+
+
+.delete {
+background-color: var(--danger);
+color: #fff;
+}
+
+/* ===========================
+   BLOQUES / PANELES
+=========================== */
+
+.panel {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.panel-separacion {
+  margin-top: 30px;
+}
+
+/* Títulos dentro de panel */
+.panel h2 {
+  margin-bottom: 12px;
+}
+
+/* ===========================
+   FORMULARIO COMO CAJA
+=========================== */
+
+#formularioCancion label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+#formularioCancion input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#formularioCancion input:focus {
+  outline: none;
+  border-color: #7b5cff;
+  box-shadow: 0 0 0 2px rgba(123, 92, 255, 0.15);
+}
+
+#btnGuardar {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: #7b5cff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#btnGuardar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   LISTA COMO TARJETAS
+=========================== */
+
+#listaCanciones {
+  list-style: none;
+  padding: 0;
+}
+
+#listaCanciones li {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Botones dentro de la lista */
+#listaCanciones button {
+  margin-left: 6px;
+  padding: 5px 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+#listaCanciones button:first-of-type {
+  background-color: #ffb703;
+  color: #000;
+}
+
+#listaCanciones button:last-of-type {
+  background-color: #e63946;
+  color: #fff;
+}

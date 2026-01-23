@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Práctica 04 - CRUD Playlist</title>
+
+  <!-- Base primero, específico después -->
+  <link rel="stylesheet" href="estilos_base.css" />
+  <link rel="stylesheet" href="estilosCRUD.css" />
+</head>
+
+<body>
+  <!-- Accesibilidad -->
+  <a class="sr-only sr-only-focusable" href="#listaCanciones">
+    Ir a la playlist 🎵
+  </a>
+
+  <main class="contenedor">
+    <h1>CRUD Playlist 🎶</h1>
+    <p class="texto-chico">
+      Crear / Editar / Eliminar canciones
+    </p>
+
+    <!-- PANEL FORMULARIO -->
+    <section class="panel">
+      <form id="formularioCancion" novalidate>
+        <label for="titulo">Título de la canción</label>
+        <input
+          type="text"
+          id="titulo"
+          name="titulo"
+          placeholder="Mínimo 3 caracteres..."
+          autocomplete="off"
+          aria-describedby="textoError"
+        />
+
+        <label for="artista">Artista</label>
+        <input
+          type="text"
+          id="artista"
+          name="artista"
+          placeholder="Obligatorio..."
+          autocomplete="off"
+          aria-describedby="textoError"
+        />
+
+        <!-- Errores de validación -->
+        <div id="textoError" class="error" role="alert"></div>
+
+        <!-- Estado del formulario -->
+        <button type="submit" id="btnGuardar" disabled>
+          Guardar canción
+        </button>
+
+        <p id="mensaje" class="texto-chico" aria-live="polite">
+          Listo.
+        </p>
+      </form>
+    </section>
+
+    <!-- PANEL LISTA -->
+    <section class="panel panel-separacion">
+      <h2>Playlist 🎧</h2>
+
+      <ul id="listaCanciones">
+        <!-- Se genera dinámicamente -->
+      </ul>
+
+      <p id="textoVacio" class="texto-chico">
+        Aún no hay canciones en la playlist.
+      </p>
+    </section>
+  </main>
+
+  <!-- JS -->
+  <script src="playlist.js" defer></script>
+</body>
+</html>
