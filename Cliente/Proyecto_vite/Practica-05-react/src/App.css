@@ -1,0 +1,151 @@
+:root {
+  --zelda-green: #2aff9e;
+}
+
+/* CONTENEDOR PRINCIPAL */
+#root {
+  min-height: 100vh;
+}
+
+/* CONTENEDOR GENERAL */
+.zelda-container {
+  position: relative; /* 🔑 CLAVE */
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #0f3d2e, #04140e 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* =========================
+   CAPA DE PARTÍCULAS (FONDO)
+========================= */
+
+.fire-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ember {
+  position: absolute;
+  bottom: -10px;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #2aff9e, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+
+/* ANIMACIÓN SUAVE */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* DISTRIBUCIÓN CONTROLADA */
+.ember:nth-child(1)  { left: 10%; animation-duration: 7s; }
+.ember:nth-child(2)  { left: 20%; animation-duration: 9s; }
+.ember:nth-child(3)  { left: 30%; animation-duration: 8s; }
+.ember:nth-child(4)  { left: 40%; animation-duration: 10s; }
+.ember:nth-child(5)  { left: 50%; animation-duration: 7s; }
+.ember:nth-child(6)  { left: 60%; animation-duration: 9s; }
+.ember:nth-child(7)  { left: 70%; animation-duration: 8s; }
+.ember:nth-child(8)  { left: 80%; animation-duration: 10s; }
+.ember:nth-child(9)  { left: 90%; animation-duration: 7s; }
+.ember:nth-child(10) { left: 15%; animation-duration: 9s; }
+.ember:nth-child(11) { left: 25%; animation-duration: 8s; }
+.ember:nth-child(12) { left: 35%; animation-duration: 10s; }
+.ember:nth-child(13) { left: 45%; animation-duration: 7s; }
+.ember:nth-child(14) { left: 55%; animation-duration: 9s; }
+.ember:nth-child(15) { left: 65%; animation-duration: 8s; }
+.ember:nth-child(16) { left: 75%; animation-duration: 10s; }
+
+/* =========================
+   CONTENIDO (ENCIMA)
+========================= */
+
+.zelda-container > *:not(.fire-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+/* LOGOS */
+.logos {
+  height: 260px; /* 🔑 evita brincos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  transition: all 0.6s ease;
+}
+
+.zelda-logo {
+  height: 15rem;
+  filter: drop-shadow(0 0 18px rgba(42, 255, 158, 0.5));
+}
+
+.link-logo {
+  height: 22rem;
+  filter:
+    drop-shadow(0 0 25px var(--zelda-green))
+    drop-shadow(0 0 45px rgba(42, 255, 158, 0.4));
+}
+
+/* TITULOS */
+.zelda-title {
+  font-size: 3rem;
+  letter-spacing: 0.25em;
+  color: #eafff6;
+  text-shadow: 0 0 25px var(--zelda-green);
+}
+
+.zelda-subtitle {
+  opacity: 0.85;
+}
+
+/* BOTONES */
+.zelda-menu {
+  margin-top: 1.8rem;
+  display: flex;
+  gap: 1rem;
+}
+
+button {
+  padding: 0.75em 2.4em;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #1c3b32, #0e1f1a);
+  color: #eafff6;
+  font-weight: 600;
+  border: 1px solid var(--zelda-green);
+  box-shadow: 0 0 14px rgba(42, 255, 158, 0.4);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 22px var(--zelda-green);
+}
+
+.read-the-docs {
+  margin-top: 1.4rem;
+  color: rgba(220, 255, 240, 0.7);
+}

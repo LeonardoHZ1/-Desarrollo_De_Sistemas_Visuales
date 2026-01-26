@@ -1,0 +1,53 @@
+:root {
+  font-family: "Cinzel", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(220, 255, 240, 0.9);
+
+  background-color: #050a08;
+
+  --zelda-green: #2aff9e;
+  --zelda-green-soft: rgba(42, 255, 158, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(42, 255, 158, 0.12),
+      rgba(0, 0, 0, 0.95)
+    ),
+    url("/src/assets/zelda-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* energía tipo Zonai */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      120deg,
+      transparent,
+      transparent 40px,
+      rgba(42, 255, 158, 0.03) 42px
+    );
+  pointer-events: none;
+}
