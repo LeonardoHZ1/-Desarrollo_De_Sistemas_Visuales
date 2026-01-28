@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import zeldaLogo from "./assets/react.svg";
+import { SessionForm } from "./components/SessionForm";
 
 function App() {
   const [newGame, setNewGame] = useState(false);
@@ -63,6 +64,9 @@ function App() {
       </div>
 
       <p className="read-the-docs">Selecciona una opción</p>
+
+      {/* COMPONENTE DE FORMULARIO CON SESIÓN */}
+      <SessionForm />
     </div>
   );
 }
