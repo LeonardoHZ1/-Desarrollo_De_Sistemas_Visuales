@@ -1,0 +1,92 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #2b2d82, #8b2f6c);
+}
+
+.layout {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.imagen {
+  width: 260px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  width: 320px;
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1f2a6b;
+}
+
+.card label {
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+}
+
+.card input,
+.card select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+button {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: #8b2f6c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: gray;
+}
+
+.barra {
+  margin-top: 15px;
+  background: #ddd;
+  height: 24px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.relleno {
+  height: 100%;
+  background: linear-gradient(90deg, #2b2d82, #8b2f6c);
+  color: white;
+  text-align: center;
+  font-size: 13px;
+  line-height: 24px;
+  transition: width 0.3s;
+}
+
+.error {
+  color: crimson;
+  font-size: 13px;
+  margin-top: 10px;
+  text-align: center;
+}
