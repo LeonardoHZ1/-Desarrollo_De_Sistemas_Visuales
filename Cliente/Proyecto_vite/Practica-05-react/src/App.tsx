@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import zeldaLogo from "./assets/react.svg";
+import KanbanBoard from "./components/KanbanBoard";
 import { SessionForm } from "./components/SessionForm";
 
 function App() {
   const [newGame, setNewGame] = useState(false);
   const [mensaje, setMensaje] = useState("Reanudando aventura...");
+  const [route, setRoute] = useState<string>(window.location.hash.replace("#", "") || "home");
+
+  useEffect(() => {
+    const onHash = () => setRoute(window.location.hash.replace("#", "") || "home");
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
 
   return (
     <div className="zelda-container">
@@ -65,8 +73,25 @@ function App() {
 
       <p className="read-the-docs">Selecciona una opción</p>
 
-      {/* COMPONENTE DE FORMULARIO CON SESIÓN */}
-      <SessionForm />
+      <nav className="app-nav">
+        <a href="#home">Inicio</a>
+        {' | '}
+        <a href="#kanban">Kanban</a>
+      </nav>
+
+      {/* RUTAS SIMPLES POR HASH */}
+      {route === "kanban" && (
+        <div style={{ marginTop: 16 }}>
+          <KanbanBoard />
+        </div>
+      )}
+
+      {route === "home" && (
+        <>
+          {/* FORMULARIO DE SESIÓN (inicio de sesión) */}
+          <SessionForm />
+        </>
+      )}
     </div>
   );
 }
