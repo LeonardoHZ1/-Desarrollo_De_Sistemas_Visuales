@@ -4,14 +4,10 @@ import NewTaskForm from "./NewTaskForm";
 import "./Kanban.css";
 
 type Task = { id: string; title: string; description?: string };
-type Columns = {
-  pending: Task[];
-  inProgress: Task[];
-  done: Task[];
-};
+type ColId = "pending" | "inProgress" | "done";
+type Columns = Record<ColId, Task[]>;
 
 const STORAGE_KEY = "kanban_state";
-
 const defaultState: Columns = { pending: [], inProgress: [], done: [] };
 
 export default function KanbanBoard() {
@@ -19,71 +15,63 @@ export default function KanbanBoard() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       return raw ? JSON.parse(raw) : defaultState;
-    } catch (e) {
+    } catch {
       return defaultState;
     }
   });
+
+  const [selected, setSelected] = useState<{ col: ColId; id: string } | null>(null);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(columns));
   }, [columns]);
 
-  const addTask = (columnId: keyof Columns, title: string, description?: string) => {
-    const task: Task = { id: Date.now().toString(), title, description };
-    setColumns((prev) => ({ ...prev, [columnId]: [task, ...prev[columnId]] }));
-    // Mensaje de confirmación al crear
-    window.alert("Tarea creada");
+  const addTask = (col: ColId, title: string, desc?: string) => {
+    const task: Task = { id: Date.now().toString(), title, description: desc };
+    setColumns(prev => ({ ...prev, [col]: [task, ...prev[col]] }));
   };
 
-  const moveTask = (from: keyof Columns, to: keyof Columns, taskId: string) => {
+  const moveTask = (from: ColId, to: ColId, taskId: string) => {
     if (from === to) return;
-    setColumns((prev) => {
-      const source = [...prev[from]];
-      const idx = source.findIndex((t) => t.id === taskId);
+    setColumns(prev => {
+      const src = [...prev[from]];
+      const idx = src.findIndex(t => t.id === taskId);
       if (idx === -1) return prev;
-      const [task] = source.splice(idx, 1);
-      const dest = [task, ...prev[to]];
-      return { ...prev, [from]: source, [to]: dest } as Columns;
+      const [task] = src.splice(idx, 1);
+      return { ...prev, [from]: src, [to]: [task, ...prev[to]] };
     });
+    setSelected(null);
   };
 
-  const deleteTask = (from: keyof Columns, taskId: string) => {
-    if (!window.confirm("¿Eliminar esta tarea?")) return;
-    setColumns((prev) => {
-      const source = prev[from].filter((t) => t.id !== taskId);
-      return { ...prev, [from]: source } as Columns;
-    });
+  const deleteSelected = () => {
+    if (!selected) return alert("Selecciona una tarea");
+    if (!window.confirm("¿Eliminar tarea seleccionada?")) return;
+
+    setColumns(prev => ({
+      ...prev,
+      [selected.col]: prev[selected.col].filter(t => t.id !== selected.id),
+    }));
+    setSelected(null);
   };
 
   return (
     <div className="kanban-root">
       <h2>Tablero Kanban</h2>
-      <NewTaskForm onAdd={addTask} />
+
+      <NewTaskForm onAdd={addTask} onDeleteSelected={deleteSelected} />
 
       <div className="kanban-board">
-        <Column
-          id="pending"
-          title="Pendiente"
-          tasks={columns.pending}
-          onDropTask={(fromId: keyof Columns, taskId: string) => moveTask(fromId, "pending", taskId)}
-          onDeleteTask={(colId: keyof Columns, taskId: string) => deleteTask(colId, taskId)}
-        />
-
-        <Column
-          id="inProgress"
-          title="En Ejecucion"
-          tasks={columns.inProgress}
-          onDropTask={(fromId: keyof Columns, taskId: string) => moveTask(fromId, "inProgress", taskId)}
-          onDeleteTask={(colId: keyof Columns, taskId: string) => deleteTask(colId, taskId)}
-        />
-
-        <Column
-          id="done"
-          title="Terminado"
-          tasks={columns.done}
-          onDropTask={(fromId: keyof Columns, taskId: string) => moveTask(fromId, "done", taskId)}
-          onDeleteTask={(colId: keyof Columns, taskId: string) => deleteTask(colId, taskId)}
-        />
+        {(["pending", "inProgress", "done"] as ColId[]).map(col => (
+          <Column
+            key={col}
+            id={col}
+            title={col === "pending" ? "Pendiente" : col === "inProgress" ? "En ejecución" : "Terminado"}
+            tasks={columns[col]}
+            selected={selected}
+            onSelect={id => setSelected({ col, id })}
+            onDropTask={moveTask}
+          />
+        ))}
       </div>
     </div>
   );

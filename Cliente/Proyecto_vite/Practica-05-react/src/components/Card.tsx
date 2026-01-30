@@ -1,32 +1,35 @@
 import React from "react";
 
+type ColId = "pending" | "inProgress" | "done";
+
 export default function Card(props: {
   task: { id: string; title: string; description?: string };
-  from: "pending" | "inProgress" | "done";
-  onDelete?: () => void;
+  from: ColId;
+  selected: boolean;
+  onSelect: () => void;
 }) {
-  const { task, from, onDelete } = props;
+  const { task, from, selected, onSelect } = props;
 
   const handleDragStart = (e: React.DragEvent) => {
-    const payload = JSON.stringify({ from, taskId: task.id });
-    e.dataTransfer.setData("text/plain", payload);
+    e.dataTransfer.setData(
+      "text/plain",
+      JSON.stringify({ from, taskId: task.id })
+    );
     e.dataTransfer.effectAllowed = "move";
   };
 
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!onDelete) return;
-    // Confirmación ya hecha en KanbanBoard, pero doble comprobación aquí
-    if (window.confirm("¿Seguro que quieres eliminar esta tarea?")) {
-      onDelete();
-    }
-  };
-
   return (
-    <div className="kanban-card" draggable onDragStart={handleDragStart}>
-      <div className="kanban-card-title">{task.title}</div>
-      {task.description && <div className="kanban-card-desc">{task.description}</div>}
-      <button className="btn-delete" onClick={handleDelete} aria-label="Eliminar tarea">×</button>
+    <div
+      className={`kanban-card card-${from} ${selected ? "card-selected" : ""}`}
+      onClick={onSelect}
+    >
+      <div className="kanban-card-drag" draggable onDragStart={handleDragStart}>
+        <div className="kanban-card-title">{task.title}</div>
+      </div>
+
+      {task.description && (
+        <div className="kanban-card-desc">{task.description}</div>
+      )}
     </div>
   );
 }
