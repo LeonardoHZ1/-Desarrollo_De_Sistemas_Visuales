@@ -1,0 +1,27 @@
+.board {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.column {
+  background-color: #1e293b;
+  color: white;
+  width: 280px;
+  min-height: 350px;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.column h2 {
+  text-align: center;
+}
+
+.card {
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: grab;
+  color: white;
+}
