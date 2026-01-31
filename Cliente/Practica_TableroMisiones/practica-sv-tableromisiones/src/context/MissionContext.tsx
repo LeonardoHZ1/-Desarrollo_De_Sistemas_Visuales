@@ -1,56 +1,43 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { Mission, MissionStatus } from "../types/Mission";
 
+interface CompletedMission extends Mission {
+  completedAt: string;
+  duration: number;
+}
+
 interface MissionContextType {
   missions: Mission[];
+  completedMissions: CompletedMission[];
   moveMission: (id: string, status: MissionStatus) => void;
   deleteMission: (id: string) => void;
+  completeMission: (id: string) => void;
   addMission: (mission: Mission) => void;
+  clearCompleted: () => void;
 }
 
 const MissionContext = createContext<MissionContextType | null>(null);
 const STORAGE_KEY = "missions";
-
-const defaultMissions: Mission[] = [
-  {
-    id: crypto.randomUUID(),
-    title: "Derrotar al jefe final",
-    description: "Vencer al dragón del norte",
-    status: "pending",
-    type: "principal",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Recolectar gemas",
-    description: "Juntar 10 gemas mágicas",
-    status: "in-progress",
-    type: "secundaria",
-    startTime: Date.now(),
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Hablar con el NPC",
-    description: "Aceptar misión secundaria",
-    status: "completed",
-    type: "secundaria",
-  },
-];
+const STORAGE_COMPLETED_KEY = "completedMissions";
 
 export function MissionProvider({ children }: { children: React.ReactNode }) {
   const [missions, setMissions] = useState<Mission[]>(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) return defaultMissions;
-      const parsed = JSON.parse(stored) as Mission[];
-      return parsed.length ? parsed : defaultMissions;
-    } catch {
-      return defaultMissions;
-    }
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  const [completedMissions, setCompletedMissions] = useState<CompletedMission[]>(() => {
+    const stored = localStorage.getItem(STORAGE_COMPLETED_KEY);
+    return stored ? JSON.parse(stored) : [];
   });
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(missions));
   }, [missions]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_COMPLETED_KEY, JSON.stringify(completedMissions));
+  }, [completedMissions]);
 
   function moveMission(id: string, status: MissionStatus) {
     setMissions((prev) =>
@@ -64,14 +51,42 @@ export function MissionProvider({ children }: { children: React.ReactNode }) {
 
   function deleteMission(id: string) {
     setMissions((prev) => prev.filter((m) => m.id !== id));
+    setCompletedMissions((prev) => prev.filter((m) => m.id !== id));
+  }
+
+  function completeMission(id: string) {
+    setMissions((prev) => {
+      const mission = prev.find((m) => m.id === id);
+      if (!mission) return prev;
+
+      const duration = mission.startTime ? Math.floor((Date.now() - mission.startTime) / 1000) : 0;
+      const completed: CompletedMission = {
+        ...mission,
+        status: "completed",
+        completedAt: new Date().toLocaleString(),
+        duration,
+      };
+
+      // Evitamos duplicados
+      setCompletedMissions((prevCompleted) => {
+        if (prevCompleted.find((m) => m.id === mission.id)) return prevCompleted;
+        return [...prevCompleted, completed];
+      });
+
+      return prev.filter((m) => m.id !== id);
+    });
   }
 
   function addMission(mission: Mission) {
     setMissions((prev) => [...prev, mission]);
   }
 
+  function clearCompleted() {
+    setCompletedMissions([]);
+  }
+
   return (
-    <MissionContext.Provider value={{ missions, moveMission, deleteMission, addMission }}>
+    <MissionContext.Provider value={{ missions, completedMissions, moveMission, deleteMission, completeMission, addMission, clearCompleted }}>
       {children}
     </MissionContext.Provider>
   );

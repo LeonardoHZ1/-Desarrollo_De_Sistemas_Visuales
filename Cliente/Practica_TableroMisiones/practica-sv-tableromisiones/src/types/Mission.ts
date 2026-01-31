@@ -7,5 +7,5 @@ export interface Mission {
   description: string;
   status: MissionStatus;
   type: MissionType;
-  startTime?: number; // para temporizador
+  startTime?: number; 
 }

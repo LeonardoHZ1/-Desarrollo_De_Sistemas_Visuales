@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Board } from "./components/Board";
 import { AddMissionForm } from "./components/AddMissionForm";
+import { CompletedMissions } from "./components/CompletedMissions";
+import RPGHero from "./assets/RPGHero.svg";
 
 function App() {
-  // partículas fuego
   useEffect(() => {
     const container = document.querySelector(".fire-particles");
     if (!container) return;
@@ -20,9 +21,13 @@ function App() {
   return (
     <>
       <div className="fire-particles"></div>
-      <h1 className="title-medieval">Tablón de Misiones 🎮</h1>
+    <h1 className="title-medieval" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+  <img src={RPGHero} width={500} height={200} alt="Protagonista RPG" />
+  Tablón de Misiones
+</h1>
       <AddMissionForm />
       <Board />
+      <CompletedMissions />
     </>
   );
 }
