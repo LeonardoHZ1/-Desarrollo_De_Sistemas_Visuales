@@ -1,5 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background-color: #0f172a;
+  font-family: "Cinzel", serif;
+  background-color: #3e2f1c;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      #3e2f1c,
+      #3e2f1c 20px,
+      #4b3823 20px,
+      #4b3823 40px
+    ),
+    linear-gradient(to bottom, #5c452d, #3e2f1c);
+  color: #f8e9c1;
+}
+
+/* título medieval */
+.title-medieval {
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  text-align: center;
+  color: #f8e9c1;
+  text-shadow:
+    2px 2px 0 #5c3d1b,
+    4px 4px 10px rgba(255, 140, 0, 0.6);
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* partículas fuego */
+.fire-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.fire-particles span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ff9500, #ff3d00);
+  border-radius: 50%;
+  animation: rise 5s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1);
+    opacity: 0;
+  }
 }

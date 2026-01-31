@@ -2,13 +2,7 @@ import type { MissionStatus } from "../types/Mission";
 import { useMissions } from "../context/MissionContext";
 import { MissionCard } from "./MissionCard";
 
-export function Column({
-  title,
-  status,
-}: {
-  title: string;
-  status: MissionStatus;
-}) {
+export function Column({ title, status }: { title: string; status: MissionStatus }) {
   const { missions, moveMission } = useMissions();
 
   function onDrop(e: React.DragEvent<HTMLDivElement>) {

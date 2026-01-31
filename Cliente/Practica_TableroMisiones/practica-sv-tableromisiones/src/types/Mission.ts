@@ -6,5 +6,6 @@ export interface Mission {
   title: string;
   description: string;
   status: MissionStatus;
-  type: MissionType; // <-- nuevo campo
+  type: MissionType;
+  startTime?: number; // para temporizador
 }

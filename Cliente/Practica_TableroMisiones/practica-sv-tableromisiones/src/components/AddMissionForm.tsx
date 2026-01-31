@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useMissions } from "../context/MissionContext";
-import type { MissionStatus, MissionType } from "../types/Mission";
+import type { MissionStatus, MissionType, Mission } from "../types/Mission";
 
 export function AddMissionForm() {
-  const { missions, moveMission } = useMissions();
+  const { addMission } = useMissions();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<MissionStatus>("pending");
@@ -12,24 +12,21 @@ export function AddMissionForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!title.trim() || !description.trim()) {
       setError("Debes ingresar título y descripción");
       return;
     }
 
-    const newMission = {
+    const newMission: Mission = {
       id: crypto.randomUUID(),
       title,
       description,
       status,
       type,
+      startTime: status === "in-progress" ? Date.now() : undefined,
     };
 
-    const updatedMissions = [...missions, newMission];
-    localStorage.setItem("missions", JSON.stringify(updatedMissions));
-    moveMission(newMission.id, newMission.status);
-
+    addMission(newMission);
     setTitle("");
     setDescription("");
     setStatus("pending");
@@ -41,12 +38,12 @@ export function AddMissionForm() {
     <form
       onSubmit={handleSubmit}
       style={{
-        background: "#1e293b",
+        background: "rgba(92, 69, 45, 0.85)",
         padding: "15px",
         borderRadius: "10px",
         margin: "20px auto",
         maxWidth: "400px",
-        color: "white",
+        color: "#f8e9c1",
       }}
     >
       <h3>Agregar Nueva Misión</h3>

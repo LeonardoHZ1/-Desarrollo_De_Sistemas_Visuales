@@ -5,10 +5,10 @@ interface MissionContextType {
   missions: Mission[];
   moveMission: (id: string, status: MissionStatus) => void;
   deleteMission: (id: string) => void;
+  addMission: (mission: Mission) => void;
 }
 
 const MissionContext = createContext<MissionContextType | null>(null);
-
 const STORAGE_KEY = "missions";
 
 const defaultMissions: Mission[] = [
@@ -25,6 +25,7 @@ const defaultMissions: Mission[] = [
     description: "Juntar 10 gemas mágicas",
     status: "in-progress",
     type: "secundaria",
+    startTime: Date.now(),
   },
   {
     id: crypto.randomUUID(),
@@ -41,15 +42,7 @@ export function MissionProvider({ children }: { children: React.ReactNode }) {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (!stored) return defaultMissions;
       const parsed = JSON.parse(stored) as Mission[];
-      if (!Array.isArray(parsed) || parsed.length === 0) return defaultMissions;
-      const validMissions = parsed.filter(
-        (m) =>
-          m.id &&
-          m.status &&
-          ["pending", "in-progress", "completed"].includes(m.status) &&
-          ["principal", "secundaria"].includes(m.type)
-      );
-      return validMissions.length ? validMissions : defaultMissions;
+      return parsed.length ? parsed : defaultMissions;
     } catch {
       return defaultMissions;
     }
@@ -61,7 +54,11 @@ export function MissionProvider({ children }: { children: React.ReactNode }) {
 
   function moveMission(id: string, status: MissionStatus) {
     setMissions((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, status } : m))
+      prev.map((m) =>
+        m.id === id
+          ? { ...m, status, startTime: status === "in-progress" ? Date.now() : m.startTime }
+          : m
+      )
     );
   }
 
@@ -69,8 +66,12 @@ export function MissionProvider({ children }: { children: React.ReactNode }) {
     setMissions((prev) => prev.filter((m) => m.id !== id));
   }
 
+  function addMission(mission: Mission) {
+    setMissions((prev) => [...prev, mission]);
+  }
+
   return (
-    <MissionContext.Provider value={{ missions, moveMission, deleteMission }}>
+    <MissionContext.Provider value={{ missions, moveMission, deleteMission, addMission }}>
       {children}
     </MissionContext.Provider>
   );
@@ -78,7 +79,6 @@ export function MissionProvider({ children }: { children: React.ReactNode }) {
 
 export function useMissions() {
   const context = useContext(MissionContext);
-  if (!context)
-    throw new Error("useMissions debe usarse dentro de MissionProvider");
+  if (!context) throw new Error("useMissions debe usarse dentro de MissionProvider");
   return context;
 }
