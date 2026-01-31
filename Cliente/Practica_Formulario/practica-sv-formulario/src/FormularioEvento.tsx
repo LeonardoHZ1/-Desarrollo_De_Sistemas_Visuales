@@ -56,7 +56,7 @@ export default function FormularioEvento({ onGuardar }: Props) {
 
   return (
     <div className="card">
-      <h2>Registro a Evento</h2>
+      <h2>Registro de alumnos</h2>
 
       <form onSubmit={enviar}>
         <label>
