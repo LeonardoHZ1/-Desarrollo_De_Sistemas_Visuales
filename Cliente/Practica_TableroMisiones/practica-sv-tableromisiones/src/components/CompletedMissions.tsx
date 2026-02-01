@@ -8,7 +8,7 @@ export function CompletedMissions() {
   return (
     <div style={{ margin: "20px auto", maxWidth: "800px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2 style={{ textAlign: "center" }}>Misiones Completadas</h2>
+        <h2 style={{color: "#fff", textAlign: "center" }}>Misiones Completadas</h2>
         <button
           onClick={clearCompleted}
           style={{ background: "#ef4444", color: "#fff", border: "none", padding: "5px 10px", borderRadius: "5px", cursor: "pointer" }}
@@ -16,7 +16,7 @@ export function CompletedMissions() {
           Limpiar tabla
         </button>
       </div>
-      <table style={{ width: "100%", borderCollapse: "collapse", backgroundColor: "rgba(92,69,45,0.85)", color: "#f8e9c1" }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", backgroundColor: "rgba(12, 8, 4, 0.85)", color: "#f8e9c1" }}>
         <thead>
           <tr>
             <th style={{ border: "1px solid #f8e9c1", padding: "5px" }}>Título</th>

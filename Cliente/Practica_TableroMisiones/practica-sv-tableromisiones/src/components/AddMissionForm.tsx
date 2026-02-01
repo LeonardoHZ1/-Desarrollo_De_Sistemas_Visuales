@@ -38,7 +38,7 @@ export function AddMissionForm() {
     <form
       onSubmit={handleSubmit}
       style={{
-        background: "rgba(92, 69, 45, 0.85)",
+        background: "rgba(5, 4, 2, 0.85)",
         padding: "15px",
         borderRadius: "10px",
         margin: "20px auto",
