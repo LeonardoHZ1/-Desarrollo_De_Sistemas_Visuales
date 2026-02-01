@@ -22,8 +22,8 @@ function App() {
     <>
       <div className="fire-particles"></div>
     <h1 className="title-medieval" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-  <img src={RPGHero} width={500} height={200} alt="Protagonista RPG" />
-  Tablón de Misiones
+  <img src={RPGHero} width={300} height={200} alt="Protagonista RPG" />
+  ----------Tablón de Misiones----------
 </h1>
       <AddMissionForm />
       <Board />

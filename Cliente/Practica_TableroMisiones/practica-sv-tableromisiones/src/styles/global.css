@@ -3,17 +3,17 @@
 body {
   margin: 0;
   font-family: "Cinzel", serif;
-  background-color: #3e2f1c;
+  background-color: #000000;
   background: 
     repeating-linear-gradient(
-      45deg,
-      #3e2f1c,
-      #3e2f1c 20px,
-      #4b3823 20px,
-      #4b3823 40px
+      89deg,
+      #301805,
+      #1f1201 35px,
+      #1e1308 30px,
+      #3f2608 20px
     ),
     linear-gradient(to bottom, #5c452d, #3e2f1c);
-  color: #f8e9c1;
+  color: #483b17;
 }
 
 /* título medieval */
@@ -24,7 +24,7 @@ body {
   color: #f8e9c1;
   text-shadow:
     2px 2px 0 #5c3d1b,
-    4px 4px 10px rgba(255, 140, 0, 0.6);
+    4px 4px 10px rgba(255, 47, 0, 0.6);
   margin-top: 20px;
   position: relative;
   z-index: 1;
