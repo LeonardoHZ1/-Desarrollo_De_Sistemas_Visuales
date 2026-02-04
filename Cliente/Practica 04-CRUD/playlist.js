@@ -14,8 +14,10 @@ const textoVacio = document.getElementById("textoVacio");
 
 // ===== VALIDACIÓN =====
 function validarFormulario() {
-  if (tituloInput.value.trim().length >= 3 &&
-      artistaInput.value.trim().length > 0) {
+  if (
+    tituloInput.value.trim().length >= 3 &&
+    artistaInput.value.trim().length > 0
+  ) {
     btnGuardar.disabled = false;
     error.textContent = "";
   } else {
@@ -64,10 +66,18 @@ function renderizar() {
 
   canciones.forEach((cancion, index) => {
     const li = document.createElement("li");
+
+    // Animar solo si es nueva canción
+    if (index === canciones.length - 1 && editandoIndex === null) {
+      li.classList.add("animar-entrada");
+    }
+
     li.innerHTML = `
       <strong>${cancion.titulo}</strong> - ${cancion.artista}
-      <button data-editar>Editar</button>
-      <button data-eliminar>Eliminar</button>
+      <div class="actions">
+        <button data-editar class="edit">Editar</button>
+        <button data-eliminar class="delete">Eliminar</button>
+      </div>
     `;
 
     li.querySelector("[data-editar]").onclick = () => editar(index);
@@ -84,13 +94,18 @@ function editar(index) {
   artistaInput.value = cancion.artista;
   editandoIndex = index;
   btnGuardar.disabled = false;
-  mensaje.textContent = "Editando canción...";
+  mensaje.textContent = "Editando la canción...";
 }
 
 // ===== ELIMINAR =====
 function eliminar(index) {
-  if (confirm("¿Eliminar esta canción?")) {
+  if (!confirm("¿Deseas eliminar esta canción?")) return;
+
+  const li = lista.children[index];
+  li.classList.add("animar-salida");
+
+  li.addEventListener("animationend", () => {
     canciones.splice(index, 1);
     renderizar();
-  }
+  });
 }
