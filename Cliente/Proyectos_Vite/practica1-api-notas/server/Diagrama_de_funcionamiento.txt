@@ -1,0 +1,37 @@
+flowchart TD
+    A([Inicio])
+    B[Cliente envia peticion HTTP]
+    C{Metodo HTTP}
+
+    D[GET /api/notas]
+    E[POST /api/notas]
+
+    F[Express procesa request]
+    G{MongoDB conectado}
+
+    H[Buscar notas en MongoDB]
+    I[Enviar notas en JSON]
+
+    J[Leer body]
+    K{Texto valido}
+    L[Guardar nota en MongoDB]
+    M[Enviar nota creada]
+
+    N[Error 500]
+    O[Error 400]
+    Z([Fin])
+
+    A --> B --> C
+    C -->|GET| D --> F
+    C -->|POST| E --> F
+
+    F --> G
+    G -->|No| N --> Z
+
+    G -->|Si| H --> I --> Z
+
+    J --> K
+    K -->|No| O --> Z
+    K -->|Si| L --> M --> Z
+
+    F --> J
