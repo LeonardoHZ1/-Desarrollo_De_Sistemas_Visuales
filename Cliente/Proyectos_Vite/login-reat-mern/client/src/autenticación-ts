@@ -1,0 +1,44 @@
+import {Router type Request, type Response, type NextFunction} from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import {Usuario, type UsuarioToken} from "../usuarioModelo";
+
+export const routerAutenticacion = Router();
+
+const RONDAS_SAL = 12;
+const DURACION_TOKEN = "2h";
+
+function esCorreoValido(correo: string): boolean {
+    return typeof correo === "string" && correo.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
+}
+
+function firmarToken(usuario: UsuarioToken): string {
+    const secretoJWT = process.env.JWT_SECRETO || "secreto_por_defecto";
+    if (!process.env.JWT_SECRETO) {
+        console.warn("Advertencia: No se ha proporcionado un secreto JWT en las variables de entorno. Se está utilizando un valor por defecto, lo cual no es seguro para producción."); 
+    }
+    return jwt.sign(usuario, secretoJWT, { expiresIn: DURACION_TOKEN });
+}
+function verificarToken(tokenAcceso: string): UsuarioToken | null {
+    const secretoJWT = process.env.JWT_SECRETO || "secreto_por_defecto";
+if! (process.env.JWT_SECRETO) {
+    console.warn("Advertencia: No se ha proporcionado un secreto JWT en las variables de entorno. Se está utilizando un valor por defecto, lo cual no es seguro para producción.");
+}  
+return jwt.verify(tokenAcceso, secretoJWT) as UsuarioToken;
+}
+
+type SolicitudConUsuario = Request & { usuario?: UsuarioToken };
+
+function autenticarToken(req: SolicitudConUsuario, res: Response, next: NextFunction): void {
+    try {
+        const tokenAcceso = solicitud.cookies?.tokenAcceso as string | SolicitudConUsuario
+
+
+function autorizarRoles(...rolesPermitidos: Rol []){
+    return (req: SolicitudConUsuario, res: Response, next: NextFunction): void => {
+        const usuario = req.usuario;
+        if (!usuario) {
+            res.status(401).json({ mensaje: "No autenticado" });
+            return;
+        }       
+}
