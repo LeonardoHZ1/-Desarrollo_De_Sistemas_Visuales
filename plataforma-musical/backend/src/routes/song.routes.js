@@ -1,17 +1,10 @@
 import { Router } from "express";
-import Song from "../models/Song.js";
-import { verifyToken } from "../middleware/verifyToken.js";
+import { getSongs, createSong } from "../controllers/song.controller.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 const router = Router();
 
-router.get("/", verifyToken, async (req, res) => {
-  const songs = await Song.find();
-  res.json(songs);
-});
-
-router.post("/", verifyToken, async (req, res) => {
-  const song = await Song.create(req.body);
-  res.status(201).json(song);
-});
+router.get("/", verifyToken, getSongs);
+router.post("/", verifyToken, createSong); // Aquí usamos createSong
 
 export default router;

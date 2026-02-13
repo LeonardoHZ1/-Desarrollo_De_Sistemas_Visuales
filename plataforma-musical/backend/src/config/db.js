@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 
-const connectDB = async () => {
+// Usamos export const para que coincida con la importación entre llaves { connectDB }
+export const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("✅ Mongo conectado");
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`✅ MongoDB Conectado: ${conn.connection.host}`);
   } catch (error) {
-    console.error("❌ Error Mongo:", error);
-    process.exit(1);
+    console.error(`❌ Error en conexión: ${error.message}`);
+    process.exit(1); // Detiene la app si no hay base de datos
   }
 };
-
-export default connectDB;

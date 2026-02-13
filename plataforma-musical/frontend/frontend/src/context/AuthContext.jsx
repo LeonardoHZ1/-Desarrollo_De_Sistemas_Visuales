@@ -1,22 +1,48 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import axios from "../api/axios";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth debe estar dentro de AuthProvider");
+  return context;
+};
 
-  const login = (token) => {
-    localStorage.setItem("token", token);
-    setToken(token);
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      try {
+        const res = await axios.get("/auth/verify");
+        setUser(res.data);
+      } catch (error) {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkLogin();
+  }, []);
+
+  const signin = async (data) => {
+    try {
+      const res = await axios.post("/auth/login", data);
+      setUser(res.data);
+    } catch (error) {
+      console.error(error.response.data);
+    }
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
+    axios.post("/auth/logout");
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ user, signin, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

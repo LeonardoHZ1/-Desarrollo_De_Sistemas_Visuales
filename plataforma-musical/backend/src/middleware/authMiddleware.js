@@ -1,26 +1,15 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User.js";
 
-export const verifyToken = async (req, res, next) => {
-  try {
-    const authHeader = req.headers.authorization;
+export const verifyToken = (req, res, next) => {
+  // Busca la cookie llamada 'token' (o como la hayas nombrado en el login)
+  const { token } = req.cookies;
 
-    if (!authHeader || !authHeader.startsWith("Bearer "))
-      return res.status(401).json({ message: "No autorizado" });
+  if (!token) return res.status(401).json({ message: "No hay token, autorización denegada" });
 
-    const token = authHeader.split(" ")[1];
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: "Token no válido" });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    const user = await User.findById(decoded.id).select("-password");
-
-    if (!user)
-      return res.status(401).json({ message: "Usuario no válido" });
-
-    req.user = user;
-
+    req.user = user; // Guardamos los datos decodificados (id, role, etc)
     next();
-  } catch (error) {
-    return res.status(401).json({ message: "Token inválido" });
-  }
+  });
 };
