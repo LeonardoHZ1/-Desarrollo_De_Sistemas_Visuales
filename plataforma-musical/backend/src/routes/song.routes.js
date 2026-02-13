@@ -1,21 +1,17 @@
 import { Router } from "express";
-import {
-  getSongs,
-  createSong,
-  updateSong,
-  deleteSong,
-  exportSongsPDF
-} from "../controllers/song.controller.js";
-
+import Song from "../models/Song.js";
 import { verifyToken } from "../middleware/verifyToken.js";
-import { verifyRole } from "../middleware/verifyRole.js";
 
 const router = Router();
 
-router.get("/", verifyToken, getSongs);
-router.post("/", verifyToken, verifyRole("admin", "artist"), createSong);
-router.put("/:id", verifyToken, verifyRole("admin"), updateSong);
-router.delete("/:id", verifyToken, verifyRole("admin"), deleteSong);
-router.get("/export/pdf", verifyToken, verifyRole("admin"), exportSongsPDF);
+router.get("/", verifyToken, async (req, res) => {
+  const songs = await Song.find();
+  res.json(songs);
+});
+
+router.post("/", verifyToken, async (req, res) => {
+  const song = await Song.create(req.body);
+  res.status(201).json(song);
+});
 
 export default router;
