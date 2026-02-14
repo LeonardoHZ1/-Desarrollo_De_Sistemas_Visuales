@@ -1,14 +1,14 @@
-import express from "express";
+import { Router } from "express";
 import { createTicket, getTickets } from "../controllers/ticketController.js";
 import { verifyToken } from "../middleware/authMiddleware.js";
-import { verifyRole } from "../middleware/verifyRole.js"; // Nombre corregido
+import { verifyRole } from "../middleware/verifyRole.js";
 
-const router = express.Router();
+const router = Router();
 
-// Cualquier usuario con rol 'user' o 'admin' puede crear tickets
-router.post("/", verifyToken, verifyRole("user", "admin"), createTicket);
+// Todos pueden reportar
+router.post("/", verifyToken, verifyRole("user", "admin", "artista", "moderador"), createTicket);
 
-// Solo el admin puede ver la lista de todos los tickets
-router.get("/", verifyToken, verifyRole("admin"), getTickets);
+// Solo Staff puede ver la lista completa
+router.get("/", verifyToken, verifyRole("admin", "moderador"), getTickets);
 
 export default router;

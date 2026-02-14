@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { getSongs, createSong } from "../controllers/song.controller.js";
-import { verifyToken } from "../middleware/authMiddleware.js";
+import { getSongs, createSong, deleteSong } from "../controllers/song.controller.js";
 
 const router = Router();
 
-router.get("/", verifyToken, getSongs);
-router.post("/", verifyToken, createSong); // Aquí usamos createSong
+router.get("/", getSongs);
+router.post("/", createSong);
+router.delete("/:id", deleteSong); // Ruta para el botón de la papelera
 
 export default router;

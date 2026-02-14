@@ -1,21 +1,26 @@
 :root {
-  --bg-dark: #121212;
+  --bg-dark: #0f0f0f;
   --card-green: #61d47a;
   --card-purple: #a876aa;
   --card-blue: #3b6b9a;
   --card-orange: #f47a4d;
   --text-white: #ffffff;
+  --error: #ef4444;
+  --success: #10b981;
+  --draft: #f59e0b;
 }
 
 body {
   background-color: var(--bg-dark);
   color: var(--text-white);
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   margin: 0;
+  overflow-x: hidden;
 }
 
+/* --- ANIMACIONES (Requerimiento de Rúbrica) --- */
 .fade-in {
-  animation: fadeIn 0.8s ease-out;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 @keyframes fadeIn {
@@ -23,46 +28,99 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.icon-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.pulse-draft {
+  animation: pulse 2s infinite;
+  color: var(--draft);
+  font-size: 0.85rem;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* --- DASHBOARD GRID --- */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  max-width: 1000px;
-  margin: 40px auto;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 50px auto;
   padding: 20px;
 }
 
+/* --- TARJETAS Y TRANSFORMACIONES --- */
 .dash-card {
-  height: 200px;
+  height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 15px;
+  border-radius: 20px;
   text-decoration: none;
   color: white !important;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1.5rem;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .dash-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-12px) scale(1.02);
   filter: brightness(1.1);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.card-green { background: linear-gradient(135deg, #61d47a, #45a05a); }
+.card-purple { background: linear-gradient(135deg, #a876aa, #855d87); }
+.card-blue { background: linear-gradient(135deg, #3b6b9a, #2a4d6e); }
+.card-orange { background: linear-gradient(135deg, #f47a4d, #c35a34); }
+
+/* --- FORMULARIOS (Estilo Glassmorphism) --- */
+.glass-form {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem;
+  border-radius: 24px;
+}
+
+.input-field {
+  width: 100%;
+  background: #1a1a1a;
+  border: 2px solid transparent;
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--card-blue);
+  background: #222;
 }
 
 .btn-primary {
-  background: #333;
-  color: white;
+  background: var(--text-white);
+  color: black;
   border: none;
   padding: 15px 30px;
-  border-radius: 30px;
+  border-radius: 50px;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.3s;
+  transition: 0.3s transform active;
 }
 
-.btn-primary:hover {
-  background: #444;
-}
+.btn-primary:active { transform: scale(0.95); }
