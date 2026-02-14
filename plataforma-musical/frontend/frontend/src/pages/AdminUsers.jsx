@@ -1,4 +1,4 @@
-// frontend/src/pages/AdminUsers.jsx
+
 import React from 'react';
 import Navbar from "../components/Navbar";
 

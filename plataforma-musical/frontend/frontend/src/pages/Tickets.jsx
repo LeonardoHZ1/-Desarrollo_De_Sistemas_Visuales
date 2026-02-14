@@ -32,7 +32,7 @@ function Tickets() {
 
   return (
     <div className="fade-in glass-form" style={{ maxWidth: "500px", margin: "50px auto", textAlign: "center" }}>
-      {/* SVG con tamaño controlado para que no salga gigante */}
+      {/* SVG con tamaño controlado */}
       <svg 
         className="icon-float" 
         width="80" 

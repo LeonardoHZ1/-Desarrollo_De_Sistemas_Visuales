@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// Usamos export const para que coincida con la importación entre llaves { connectDB }
 export const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI);

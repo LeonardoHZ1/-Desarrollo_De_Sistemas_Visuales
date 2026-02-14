@@ -1,4 +1,4 @@
-// frontend/src/utils/ReportePDF.js
+
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 

@@ -5,6 +5,6 @@ const router = Router();
 
 router.get("/", getSongs);
 router.post("/", createSong);
-router.delete("/:id", deleteSong); // Ruta para el botón de la papelera
+router.delete("/:id", deleteSong); 
 
 export default router;

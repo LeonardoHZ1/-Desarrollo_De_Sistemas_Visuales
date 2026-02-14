@@ -1,4 +1,4 @@
-import Song from "../models/Song.js"; // Coincide con tu archivo físico
+import Song from "../models/Song.js"; 
 
 export const getSongs = async (req, res) => {
   try {

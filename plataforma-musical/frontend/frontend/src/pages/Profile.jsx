@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext"; // Importamos tu contexto
+import { useAuth } from "../context/AuthContext"; 
 
 function Profile() {
-  const { user: authUser, logout } = useAuth(); // Obtenemos el usuario real y el logout
+  const { user: authUser, logout } = useAuth(); 
   const [isEditing, setIsEditing] = useState(false);
   const [animate, setAnimate] = useState(false);
   
-  // Inicializamos con los datos del AuthContext o valores por defecto
+  
   const [user, setUser] = useState({
     username: authUser?.username || "Usuario",
     email: authUser?.email || "correo@ejemplo.com",
@@ -20,7 +20,7 @@ function Profile() {
 
   const handleLogout = () => {
     if (window.confirm("¿Estás seguro de que quieres cerrar sesión?")) {
-      logout(); // Usamos la función de tu AuthContext
+      logout(); 
     }
   };
 
@@ -37,7 +37,7 @@ function Profile() {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px',
-      background: '#000000', // CAMBIO: Fondo negro puro
+      background: '#000000', 
       fontFamily: 'sans-serif',
       opacity: animate ? 1 : 0,
       transform: animate ? 'translateY(0)' : 'translateY(20px)',

@@ -16,7 +16,6 @@ services:
     depends_on:
       - database
     environment:
-      # Definimos las variables aquí directamente
       - MONGODB_URI=mongodb://database:27017/musicaDB
       - JWT_SECRET=tu_clave_secreta_super_segura
       - PORT=4000

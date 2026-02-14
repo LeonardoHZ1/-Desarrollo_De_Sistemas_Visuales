@@ -6,7 +6,7 @@ export const createTicket = async (req, res) => {
     const ticket = await Ticket.create({
       title,
       description,
-      priority: "high", // Regla de negocio: Todo ticket de web es alta prioridad
+      priority: "high", 
       user: req.user.id // ID extraído del Token JWT
     });
     res.status(201).json(ticket);
@@ -17,7 +17,7 @@ export const createTicket = async (req, res) => {
 
 export const getTickets = async (req, res) => {
   try {
-    // Populate trae el nombre del usuario que creó el ticket
+   
     const tickets = await Ticket.find().populate("user", "username email").sort({ createdAt: -1 });
     res.json(tickets);
   } catch (error) {

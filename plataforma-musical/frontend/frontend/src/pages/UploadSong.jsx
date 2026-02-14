@@ -3,7 +3,6 @@ import axios from "axios";
 
 function UploadSong() {
   const [song, setSong] = useState(() => {
-    // Implementación de Borrador para persistencia previa
     const saved = localStorage.getItem("songDraft");
     return saved ? JSON.parse(saved) : { title: "", artist: "", genre: "" };
   });
@@ -17,12 +16,12 @@ function UploadSong() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Conexión con el endpoint de tu backend
+     
       await axios.post("http://localhost:4000/api/songs", song, {
         withCredentials: true
       });
       setMessage("✅ ¡Canción agregada con éxito!");
-      localStorage.removeItem("songDraft"); // Limpiar borrador al éxito
+      localStorage.removeItem("songDraft"); 
       setSong({ title: "", artist: "", genre: "" });
     } catch (error) {
       setMessage("❌ Error al guardar la canción.");
@@ -33,7 +32,7 @@ function UploadSong() {
     <div className="fade-in min-h-screen flex items-center justify-center p-6">
       <div className="glass-form w-full max-w-md shadow-2xl" style={{ background: "#111", border: "1px solid #333" }}>
         
-        {/* Icono SVG Minimalista de Música */}
+        {/* Icono SVG */}
         <div className="flex justify-center mb-6">
           <svg className="icon-float" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#61d47a" strokeWidth="1.5">
             <path d="M9 18V5l12-2v13"></path>

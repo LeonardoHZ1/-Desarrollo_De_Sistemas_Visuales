@@ -33,7 +33,6 @@ function Login() {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px',
-      // CAMBIO: De radial-gradient a negro sólido para un look más limpio
       background: '#000000', 
       fontFamily: 'sans-serif',
       opacity: animate ? 1 : 0,

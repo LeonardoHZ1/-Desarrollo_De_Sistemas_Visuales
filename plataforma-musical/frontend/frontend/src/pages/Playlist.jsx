@@ -6,12 +6,12 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 function Playlist() {
-  const { user } = useAuth(); // Para verificar si es admin/artista
+  const { user } = useAuth(); 
   const [availableSongs, setAvailableSongs] = useState([]);
   const [myPlaylist, setMyPlaylist] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Cargar canciones del backend
+  
   useEffect(() => {
     const fetchSongs = async () => {
       try {
@@ -26,12 +26,12 @@ function Playlist() {
     fetchSongs();
   }, []);
 
-  // 2. Eliminar canción permanentemente (Base de Datos)
+  
   const deleteSongFromDB = async (id) => {
     if (window.confirm("¿Deseas eliminar esta canción permanentemente de la biblioteca global?")) {
       try {
         await axios.delete(`/songs/${id}`);
-        // Actualizar estados locales
+        
         setAvailableSongs(availableSongs.filter(s => s._id !== id));
         setMyPlaylist(myPlaylist.filter(s => s._id !== id));
       } catch (error) {
@@ -41,12 +41,12 @@ function Playlist() {
     }
   };
 
-  // 3. Lógica de Drag & Drop
+  
   const onDragEnd = (result) => {
     const { source, destination } = result;
     if (!destination) return;
 
-    // Mover de Biblioteca a Playlist
+    
     if (source.droppableId === "library" && destination.droppableId === "playlist") {
       const songToAdd = availableSongs[source.index];
       if (!myPlaylist.find((s) => s._id === songToAdd._id)) {
@@ -56,7 +56,7 @@ function Playlist() {
       }
     }
     
-    // Reordenar Playlist
+    
     if (source.droppableId === "playlist" && destination.droppableId === "playlist") {
       const items = Array.from(myPlaylist);
       const [reorderedItem] = items.splice(source.index, 1);
@@ -69,7 +69,7 @@ function Playlist() {
     setMyPlaylist(myPlaylist.filter((s) => s._id !== id));
   };
 
-  // 4. Generar PDF (Fix importación)
+  
   const downloadPDF = () => {
     try {
       const doc = new jsPDF();

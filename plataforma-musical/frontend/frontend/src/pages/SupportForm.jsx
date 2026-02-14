@@ -5,13 +5,13 @@ function SupportForm() {
   const navigate = useNavigate();
   const [animate, setAnimate] = useState(false);
 
-  // Lógica de Borrador (Regla de negocio mantenida)
+  
   const [ticket, setTicket] = useState(() => {
     const saved = localStorage.getItem("support_draft");
     return saved ? JSON.parse(saved) : { subject: "", message: "", category: "tecnico" };
   });
 
-  // Disparar animación al montar el componente
+  
   useEffect(() => {
     setAnimate(true);
     localStorage.setItem("support_draft", JSON.stringify(ticket));
@@ -104,7 +104,7 @@ function SupportForm() {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        {/* Banner igual al Perfil para coherencia visual */}
+        {/* Banner al Perfil*/}
         <div style={styles.banner}>
            <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9L21 3z"></path>

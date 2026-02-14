@@ -9,7 +9,7 @@ import Playlist from "./pages/Playlist";
 import UploadSong from "./pages/UploadSong";
 import Profile from "./pages/Profile";
 import Tickets from "./pages/Tickets";
-import AdminTickets from "./pages/AdminTickets"; // Nuevo Import
+import AdminTickets from "./pages/AdminTickets"; 
 
 function App() {
   return (
@@ -28,12 +28,12 @@ function App() {
             <Route path="/tickets" element={<Tickets />} />
           </Route>
 
-          {/* RUTAS RBAC: Solo Staff (Botón Amarillo) */}
+          {/* RUTAS RBAC: Solo Staff  */}
           <Route element={<ProtectedRoute allowedRoles={["admin", "moderador"]} />}>
             <Route path="/admin-tickets" element={<AdminTickets />} />
           </Route>
 
-          {/* RUTAS RBAC: Solo Creadores (Botón Azul) */}
+          {/* RUTAS RBAC: Solo Creadores  */}
           <Route element={<ProtectedRoute allowedRoles={["artista", "admin"]} />}>
             <Route path="/songs" element={<UploadSong />} />
           </Route>

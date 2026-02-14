@@ -3,7 +3,6 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
 function RegisterPage() {
-  // Estado inicial sincronizado con tu backend
   const [formData, setFormData] = useState({ 
     username: "", 
     email: "", 
@@ -36,7 +35,6 @@ function RegisterPage() {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '40px 20px',
-      // CAMBIO: Fondo negro puro para que coincida con el Login
       background: '#000000', 
       fontFamily: 'sans-serif',
       opacity: animate ? 1 : 0,

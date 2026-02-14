@@ -18,7 +18,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- ANIMACIONES (Requerimiento de Rúbrica) --- */
+
 .fade-in {
   animation: fadeIn 0.8s ease-out forwards;
 }
@@ -49,7 +49,7 @@ body {
   100% { opacity: 1; }
 }
 
-/* --- DASHBOARD GRID --- */
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -59,7 +59,7 @@ body {
   padding: 20px;
 }
 
-/* --- TARJETAS Y TRANSFORMACIONES --- */
+
 .dash-card {
   height: 220px;
   display: flex;
@@ -86,7 +86,7 @@ body {
 .card-blue { background: linear-gradient(135deg, #3b6b9a, #2a4d6e); }
 .card-orange { background: linear-gradient(135deg, #f47a4d, #c35a34); }
 
-/* --- FORMULARIOS (Estilo Glassmorphism) --- */
+
 .glass-form {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
